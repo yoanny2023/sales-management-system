@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+
+  products Product[] // not real column, tell prisma a user can have many products
+  sales Sale[] //not real column, tell prisma a user can have many sales
+
+  @@map("users")
+}
+
+model Product {
+  id        Int @id @default(autoincrement())
+  name      String
+  price     Float
+  stock     Int
+  createdAt DateTime @default(now())
+
+  userId    Int
+  user      User @relation(fields: [userId], references: [id])
+
+  saleItems SaleItem[] //not real column, tell prisma a Product can have many saleItems
+
+  @@unique([name, userId])
+
+  @@map("produts")
+}
+
+model Sale {
+  id        Int @id @default(autoincrement())
+  total     Float
+  userId    Int
+  createdAt DateTime @default(now())
+
+  user      User @relation(fields: [userId], references: [id])
+
+  items SaleItem[] //not real column, tell prisma a sale can have many items(saleItems)
+
+  @@map("sales")
+}
+
+model SaleItem {
+  id         Int @id @default(autoincrement())
+  quantity   Int
+  unitPrice  Float
+  saleId     Int
+  productId  Int
+
+  sale       Sale  @relation(fields: [saleId],references: [id])
+  product    Product @relation(fields: [productId], references: [id])
+
+  @@map("sale_items") 
+}
