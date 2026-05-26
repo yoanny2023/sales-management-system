@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <h1 className="text-blue-500">
-      Finance app
-    </h1>
+    <main className="text-blue-500">
+      <h1>Finance app</h1>
+    </main>
   );
 }
