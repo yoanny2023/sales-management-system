@@ -6,6 +6,7 @@ import Card from '@/components/ui/Card';
 import { useForm } from 'react-hook-form';
 import { loginSchema, LoginSchemaType } from '../schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Link from 'next/link';
 
 function LoginForm() {
     const{
@@ -33,6 +34,7 @@ function LoginForm() {
           type="email" 
           id="email" 
           placeholder="Enter your email"
+          autoComplete="email"
           error={errors.email?.message}
         />
         <FormInput
@@ -41,6 +43,7 @@ function LoginForm() {
           type="password" 
           id="password" 
           placeholder="Enter your password"
+          autoComplete="current-password"
           error={errors.password?.message}
         />
    
@@ -49,6 +52,18 @@ function LoginForm() {
         >
           {isSubmitting ? "Signing in..." : "Login"}
         </Button>
+           <p className="text-center text-sm text-zinc-400 mt-4">
+            Don’t have an account yet?{" "}
+            <Link  
+              href="/auth/register"
+              className="text-amber-400 hover:text-amber-500 font-medium"
+             /*  onClick={()=>{
+                toast.success("redirecting to register page")
+              }}  */ 
+            >
+              Sign up
+            </Link>
+          </p>
       </form>
     </Card>
   )
