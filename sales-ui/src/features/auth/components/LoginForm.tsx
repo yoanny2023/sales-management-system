@@ -7,9 +7,12 @@ import { useForm } from 'react-hook-form';
 import { loginSchema, LoginSchemaType } from '../schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
+import { useState } from 'react';
+import { AuthService } from '../services/auth.service';
 
 function LoginForm() {
-    const{
+  const [apiError, setApiError] = useState("");
+  const{
       register,
       handleSubmit,
       formState:{errors,isSubmitting},
@@ -18,10 +21,18 @@ function LoginForm() {
     });
 
   async function onSubmit(data:LoginSchemaType){
-    console.log("my data:",data);
-    await new Promise((resolve) => setTimeout(resolve,1000)); // simulate api request
-    //reset();
-  }
+    try {
+      const response = await AuthService.login(data)
+      setApiError("");
+      console.log(response);
+
+      alert(`${response.message}`);
+    } catch (error:unknown) {
+       if (error instanceof Error) {
+        setApiError(error.message);
+      }
+    }
+  } 
 
   return (
    <Card className="w-full max-w-sm">
@@ -46,6 +57,12 @@ function LoginForm() {
           autoComplete="current-password"
           error={errors.password?.message}
         />
+
+        {apiError && (
+          <p className="text-sm text-red-500 text-center">
+            {apiError}
+          </p>
+        )}
    
         <Button type="submit" className="w-full rounded-full"
         disabled={isSubmitting}

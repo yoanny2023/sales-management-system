@@ -1,12 +1,14 @@
 import { api } from "@/lib/axios";
 import {AxiosError} from "axios";
-import { LoginPayload, LoginResponse } from "../types/auth.types";
+import {LoginResponse } from "../types/auth.types";
+import { LoginSchemaType } from "../schemas/auth.schema";
 
 export class AuthService{
 
-  static async login(payload:LoginPayload):Promise<LoginResponse>{
+  static async login(data:LoginSchemaType):Promise<LoginResponse>{
     try {
-      const response = await api.post<LoginResponse>("/auth/login",payload);
+      const response = await api.post<LoginResponse>("/auth/login",data);
+
       return response.data;
       
     } catch (error) {
@@ -16,8 +18,7 @@ export class AuthService{
         }>;
 
       throw new Error(
-          axiosError.response?.data?.message ??
-          "Login failed"
+          axiosError.response?.data?.message || "Login failed"
       );
     }
   }
