@@ -12,6 +12,8 @@ function Input({className,...props}: InputProps) {
         "outline-none transition duration-300",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500",
         "disabled:cursor-not-allowed disabled:opacity-50",
+        "focus:border-amber-500/40",
+        "autofill:bg-zinc-900",
         className
     )}
     />
