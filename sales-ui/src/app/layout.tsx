@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import {Geist} from "next/font/google";
 import "./globals.css";
+import { AuthContextProvider } from "@/context/authContext";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -28,7 +29,9 @@ export default function RootLayout({
           </div>
 
           <div className="relative z-10">
-            {children}
+            <AuthContextProvider>
+              {children}
+            </AuthContextProvider>
           </div>
         </div>
       </body>

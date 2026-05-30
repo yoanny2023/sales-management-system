@@ -9,9 +9,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
 import { useState } from 'react';
 import { AuthService } from '../services/auth.service';
+import { useAuth } from '@/context/authContext';
+import { useRouter } from 'next/navigation';
 
 function LoginForm() {
   const [apiError, setApiError] = useState("");
+  const{login} = useAuth();
+  const router = useRouter();
   const{
       register,
       handleSubmit,
@@ -22,11 +26,13 @@ function LoginForm() {
 
   async function onSubmit(data:LoginSchemaType){
     try {
-      const response = await AuthService.login(data)
+      const response = await AuthService.login(data);
+      const{user,token} = response
       setApiError("");
-      console.log(response);
 
-      alert(`${response.message}`);
+      login(user,token);
+      router.push("/dashboard")
+
     } catch (error:unknown) {
        if (error instanceof Error) {
         setApiError(error.message);
