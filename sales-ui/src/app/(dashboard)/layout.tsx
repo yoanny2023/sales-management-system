@@ -21,10 +21,10 @@ export default function DashboardLayout({
     }
   },[isLoading,isAuthenticated,router]);
 
-  if(isLoading){
-    return <Loading />
-  }
-
+  if(isLoading) return <Loading />
+  
+  if(!isAuthenticated) return <Loading />;
+  
   return (
     <PageContainer>
       {children}

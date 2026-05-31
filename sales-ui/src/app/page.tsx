@@ -18,9 +18,9 @@ export default function Home() {
         router.replace("/login")
       }
     }
-  },[isLoading,isAuthenticated]);
+  },[isLoading,isAuthenticated,router]);
 
-  if(isLoading)  return <Loading />
+  if(isLoading) return <Loading />
   
-  return null
+  return <Loading />
 }

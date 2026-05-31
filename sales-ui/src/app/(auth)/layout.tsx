@@ -15,9 +15,9 @@ function AuthLayout({children}:{children: React.ReactNode}) {
     }
   },[isLoading,isAuthenticated,router]);
 
-  if(isLoading){
-    return <Loading />
-  }
+  if(isLoading) return <Loading />
+
+  if(isAuthenticated) return <Loading />
 
   return (
     <>
