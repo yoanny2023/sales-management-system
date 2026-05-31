@@ -1,16 +1,23 @@
+"use client"
+
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/authContext';
+import Loading from '@/components/ui/Loading';
 
 function AuthLayout({children}:{children: React.ReactNode}) {
-  const{isAuthenticated} = useAuth();
+  const{isAuthenticated,isLoading} = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if(isAuthenticated){
+    if(!isLoading && isAuthenticated){
       router.replace("/dashboard")
     }
-  },[isAuthenticated,router]);
+  },[isLoading,isAuthenticated,router]);
+
+  if(isLoading){
+    return <Loading />
+  }
 
   return (
     <>

@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
     user: User | null;
     token: string | null;
     isAuthenticated: boolean;
+    isLoading: boolean;
     login: (user: User,token: string) => void;
     logout: () => void;
 };    
@@ -18,16 +19,19 @@ const AuthContext = React.createContext<AuthContextType | null>(null);
 export function AuthContextProvider({children}:{children: React.ReactNode}){
   const[user,setUser] = useState<User | null>(null);
   const[token, setToken] = useState<string | null>(null);
+  const[isLoading, setIsLoading] = useState(true);
+
   const router = useRouter();
 
   useEffect(() => {
     const storedToken = window.localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
+    const storedUser = window.localStorage.getItem("user");
 
     if(storedToken && storedUser){
       setToken(storedToken);
       setUser(JSON.parse(storedUser));
     }
+    setIsLoading(false);
   },[]);
 
   function login(user: User,token: string) {
@@ -52,6 +56,7 @@ export function AuthContextProvider({children}:{children: React.ReactNode}){
      { user,
       token,
       isAuthenticated: !!token,
+      isLoading,
       login,
       logout
     }

@@ -4,6 +4,7 @@ import PageContainer from "@/components/layout/PageContainer";
 import { useAuth } from "@/context/authContext";
 import { useEffect } from "react"
 import { useRouter } from "next/navigation";
+import Loading from "@/components/ui/Loading";
 
 export default function DashboardLayout({
   children,
@@ -11,14 +12,18 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
 
-  const{isAuthenticated} = useAuth();
+  const{isAuthenticated,isLoading} = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if(!isAuthenticated){
-      router.replace("/")
+    if(!isLoading && !isAuthenticated){
+      router.replace("/login")
     }
-  },[isAuthenticated,router]);
+  },[isLoading,isAuthenticated,router]);
+
+  if(isLoading){
+    return <Loading />
+  }
 
   return (
     <PageContainer>
