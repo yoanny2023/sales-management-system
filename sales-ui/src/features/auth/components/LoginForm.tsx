@@ -11,6 +11,7 @@ import { useState } from 'react';
 import { AuthService } from '../services/auth.service';
 import { useAuth } from '@/context/authContext';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 function LoginForm() {
   const [apiError, setApiError] = useState("");
@@ -31,11 +32,13 @@ function LoginForm() {
       setApiError("");
 
       login(user,token);
+      toast.success("Redirecting to dashboard")
       router.push("/dashboard")
 
     } catch (error:unknown) {
        if (error instanceof Error) {
         setApiError(error.message);
+        toast.error(error.message)
       }
     }
   } 

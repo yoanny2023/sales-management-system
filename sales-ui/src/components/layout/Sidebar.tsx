@@ -6,6 +6,7 @@ import { IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/authContext";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 type SidebarProps = {
   onClose?: () => void;
@@ -19,6 +20,7 @@ function Sidebar({onClose}: SidebarProps) {
   function handleLogout() {
     logout();
     router.replace("/login");
+    toast.success("Logging out...")
   }
 
   return (

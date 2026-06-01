@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import {Geist} from "next/font/google";
 import "./globals.css";
 import { AuthContextProvider } from "@/context/authContext";
+import { Toaster } from "react-hot-toast";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={geist.className}>
+        <Toaster position="top-right" />
         <div className="relative min-h-screen bg-zinc-950 overflow-hidden">
 
           <div className="absolute inset-0 z-0">

@@ -13,11 +13,6 @@ function Navbar() {
 
   }
 
-  function handleLogout(){
-    logout()
-    router.replace("/login")
-  }
-
   return (
    <header className="w-full h-16 px-6 bg-zinc-800 border-b border-zinc-700 flex items-center justify-between">
       {/* <button
