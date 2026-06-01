@@ -11,8 +11,7 @@ function PageContainer({
     <main
       {...props}
       className={cn(
-        "mx-auto w-full max-w-7xl",
-        "px-4 py-6 md:px-6 md:py-8",
+        "mx-auto w-full max-w-7xl px-4 py-6 md:px-6 md:py-8",
         className 
       )}
     >

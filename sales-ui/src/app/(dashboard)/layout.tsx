@@ -5,6 +5,8 @@ import { useAuth } from "@/context/authContext";
 import { useEffect } from "react"
 import { useRouter } from "next/navigation";
 import Loading from "@/components/ui/Loading";
+import Navbar from "@/components/layout/Navbar";
+import Sidebar from "@/components/layout/Sidebar";
 
 export default function DashboardLayout({
   children,
@@ -26,8 +28,15 @@ export default function DashboardLayout({
   if(!isAuthenticated) return <Loading />;
   
   return (
-    <PageContainer>
-      {children}
-    </PageContainer>
+    <div className="flex min-h-screen">
+      <Sidebar />
+      <div className="flex flex-1 flex-col">
+        <Navbar />
+
+        <main className="flex-1">
+          {children}
+        </main>
+      </div>
+    </div>    
   );
 }

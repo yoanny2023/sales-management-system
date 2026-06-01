@@ -2,7 +2,6 @@
 
 import { User } from "@/features/auth/types/auth.types";
 import React, { useContext, useEffect, useState } from "react"
-import { useRouter } from 'next/navigation';
 
   type AuthContextType = {
     user: User | null;
@@ -20,8 +19,6 @@ export function AuthContextProvider({children}:{children: React.ReactNode}){
   const[user,setUser] = useState<User | null>(null);
   const[token, setToken] = useState<string | null>(null);
   const[isLoading, setIsLoading] = useState(true);
-
-  const router = useRouter();
 
   useEffect(() => {
     const storedToken = window.localStorage.getItem("token");
@@ -48,7 +45,6 @@ export function AuthContextProvider({children}:{children: React.ReactNode}){
 
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    router.push("/");
   }
 
   return(
