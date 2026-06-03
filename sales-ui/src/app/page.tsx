@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Loading from "@/components/ui/Loading";
 import { useEffect } from "react";
 
-
 export default function Home() {
   const{isAuthenticated,isLoading} = useAuth();
   const router = useRouter();
@@ -20,7 +19,7 @@ export default function Home() {
     }
   },[isLoading,isAuthenticated,router]);
 
-  if(isLoading) return <Loading />
+  if(isLoading)  return <Loading />
   
   return <Loading />
 }

@@ -2,36 +2,41 @@
 
 import { useAuth } from '@/context/authContext';
 import { IconMenu3 } from '@tabler/icons-react'
-import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Input from '../ui/Input';
 
-function Navbar() {
-  const router = useRouter();
-  const{logout,user} = useAuth();
+type NavbarProps = {
+  onMenuClick: () => void;
+};
 
-  function onMenuClick(){
-
-  }
+function Navbar({ onMenuClick}: NavbarProps) {
+  const{user} = useAuth();
+  const pathname = usePathname();
 
   return (
-   <header className="w-full h-16 px-6 bg-zinc-800 border-b border-zinc-700 flex items-center justify-between">
-      {/* <button
-        onClick={onMenuClick}
-        className="lg:hidden text-zinc-200 cursor-pointer"
-      >
-        <IconMenu3 stroke={2} className="text-amber-500" size={18} />
-      </button> */}
+    <header className="w-full h-16 px-6 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between">
+      <div className="flex items-center gap-4">
+        <button
+          onClick={onMenuClick}
+          className="md:hidden"
+        >
+          <IconMenu3 stroke={2} className="text-amber-500 cursor-pointer" size={22} />
+        </button>
 
-      <span className="font-medium text-sm md:text-md md:text-xl text-zinc-100">
-        {`Welcome ${user?.name}`}
-      </span>
+        <h1 className="font-medium text-sm md:text-md text-amber-500">
+          {pathname.slice(1).toUpperCase()}
+        </h1>
+        
+      </div>
 
-      <Input type="search" placeholder="search" className='w-auto' />
-      <div className="flex items-center justify-center font-medium h-10 w-10 rounded-full text-zinc-950 bg-amber-500">
-        {user?.name.toLowerCase().slice(0,1).toUpperCase()}
+      <div className="flex gap-3">
+        <Input type="search" placeholder="search" className='w-auto hidden md:block' />
+        <div className="flex items-center justify-center font-semibold h-10 w-10 rounded-full text-zinc-950 bg-amber-500">
+          {user?.name?.slice(0,1).toUpperCase()}
+        </div>
       </div>
     </header>
-  )
+  );
 }
 
 export default Navbar
