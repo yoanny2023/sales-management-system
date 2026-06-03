@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import SidebarContent from "./SidebarContent";
 
 type MobileSidebarProps = {
@@ -9,16 +10,22 @@ type MobileSidebarProps = {
 
 function MobileSidebar({ isOpen, onClose,}: MobileSidebarProps) {
   
-  if (!isOpen) return null;
-
   return (
     <>
       <div
         onClick={onClose}
-        className="fixed inset-0 z-40 bg-black/50 md:hidden"
+        className = {cn(
+          "fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 md:hidden",
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+        )}
       />
 
-      <aside className="fixed left-0 top-0 z-50 h-screen w-64 border-r border-zinc-800 bg-zinc-950 md:hidden">
+      <aside className={cn(
+        "fixed left-0 top-0 z-50 h-screen w-64 border-r border-zinc-800 bg-zinc-950 shadow-2xl md:hidden",
+        "transition-transform duration-300 ease-in-out",
+        isOpen ? "translate-x-0" : "-translate-x-full",
+      )}
+      >
         <SidebarContent onNavigate={onClose} />
       </aside>
     </>
