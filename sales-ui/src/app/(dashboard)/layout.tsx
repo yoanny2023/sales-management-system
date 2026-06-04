@@ -1,29 +1,17 @@
 "use client"
 
-import { useAuth } from "@/context/authContext";
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation";
+import { useState } from "react"
 import Loading from "@/components/ui/Loading";
 import Navbar from "@/components/layout/Navbar";
 import Sidebar from "@/components/layout/Sidebar";
 import MobileSidebar from "@/components/layout/MobileSidebar";
+import { useProtectedRoute } from "@/hooks/useProtectedRoute";
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardLayout({children}: {children: React.ReactNode}) {
    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-   const{isAuthenticated,isLoading} = useAuth();
-   const router = useRouter();
+   const{isLoading,isAuthenticated} = useProtectedRoute();
 
-  useEffect(() => {
-    if(!isLoading && !isAuthenticated){
-      router.replace("/login")
-    }
-  },[isLoading,isAuthenticated,router]);
-
-  if(isLoading) return <Loading />
+  if(isLoading) return <Loading /> 
   
   if(!isAuthenticated) return <Loading />;
   
