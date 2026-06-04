@@ -81,11 +81,11 @@ function LoginForm() {
            <p className="text-center text-sm text-zinc-400 mt-4">
             Don’t have an account yet?{" "}
             <Link  
-              href="/auth/register"
+              href="/register"
               className="text-amber-400 hover:text-amber-500 font-medium"
-             /*  onClick={()=>{
-                toast.success("redirecting to register page")
-              }}  */ 
+              onClick={()=>{
+                toast.success("redirecting to register...")
+              }}  
             >
               Sign up
             </Link>

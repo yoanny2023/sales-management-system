@@ -9,3 +9,8 @@ export type LoginResponse = {
   token: string;
   user: User;
 };
+
+export type RegisterResponse = {
+  message: string;
+  user: User;
+};
