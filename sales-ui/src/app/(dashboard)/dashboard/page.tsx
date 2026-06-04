@@ -1,20 +1,22 @@
-"use client"
-
 import PageContainer from '@/components/layout/PageContainer';
-import { useAuth } from '@/context/authContext'
+import StatsCard from '@/features/dashboard/components/StatsCard';
+import WelcomeSection from '@/features/dashboard/components/WelcomeSection';
+import { dashboardStats } from '@/features/dashboard/data/mockDashboard';
 
 function DashboardPage() {
- const{user,logout} = useAuth();
 
   return (
-    <PageContainer>
-       <h1 className="text-3xl font-bold">
-        Dashboard
-      </h1>
+    <PageContainer className="space-y-6">
+      <WelcomeSection />
 
-      <p className="mt-4">
-        Welcome {user?.name}
-      </p>
+      <section className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
+        {dashboardStats.map((stat) => (
+          <StatsCard
+            key={stat.title}
+            stat={stat}
+          />
+        ))}
+      </section>
     </PageContainer>
   )
 }
