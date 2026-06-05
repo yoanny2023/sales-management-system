@@ -1,13 +1,30 @@
 "use client";
 
-import {Area,AreaChart,CartesianGrid,ResponsiveContainer,Tooltip,
-  XAxis,YAxis,} from "recharts";
+import { useEffect, useState } from "react";
+
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 import { salesChartData } from "../data/mockDashboard";
 
 export default function SalesChart() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
   return (
-    <section className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
+    <section className="min-w-0 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-zinc-100">
@@ -46,6 +63,7 @@ export default function SalesChart() {
                   stopColor="#f59e0b"
                   stopOpacity={0.3}
                 />
+
                 <stop
                   offset="95%"
                   stopColor="#f59e0b"
@@ -75,8 +93,10 @@ export default function SalesChart() {
 
             <Tooltip
               contentStyle={{
-                backgroundColor: "#18181b",
-                border: "1px solid #27272a",
+                backgroundColor:
+                  "#18181b",
+                border:
+                  "1px solid #27272a",
                 borderRadius: "16px",
                 color: "#fff",
               }}
