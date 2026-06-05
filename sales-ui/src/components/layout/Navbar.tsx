@@ -15,7 +15,6 @@ const pageTitles: Record<string, string> = {
   "/sales": "Sales",
 };
 
-
 function Navbar({ onMenuClick}: NavbarProps) {
   const{user} = useAuth();
   const pathname = usePathname();
@@ -31,10 +30,6 @@ function Navbar({ onMenuClick}: NavbarProps) {
           <IconMenu3 stroke={2} className="text-amber-500 cursor-pointer" size={22} />
         </button>
 
-        {/* <h1 className="font-medium text-sm md:text-md text-amber-500">
-          {pathname.slice(1).toUpperCase()}
-        </h1> */}
-
         <div>
           <h1 className="text-sm font-semibold text-zinc-100 md:text-base">
             {currentTitle}
@@ -44,7 +39,6 @@ function Navbar({ onMenuClick}: NavbarProps) {
             Manage your business insights
           </p>
         </div>
-        
       </div>
 
       <div className="flex gap-3">
