@@ -1,7 +1,12 @@
+import PageContainer from "@/components/layout/PageContainer";
+import ProductsHeader from "@/features/products/components/ProductsHeader";
+import ProductFilters from "@/features/products/components/ProductFilters";
+
 export default function ProductsPage() {
   return (
-    <div className="text-zinc-100">
-      Products Page
-    </div>
+    <PageContainer className="space-y-6" >
+      <ProductsHeader />
+      <ProductFilters />
+    </PageContainer>
   );
 }
