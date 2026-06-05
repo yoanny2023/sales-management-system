@@ -1,4 +1,5 @@
 import PageContainer from '@/components/layout/PageContainer';
+import RecentSalesTable from '@/features/dashboard/components/RecentSalesTable';
 import SalesChart from '@/features/dashboard/components/SalesChart';
 import StatsCard from '@/features/dashboard/components/StatsCard';
 import TopProducts from '@/features/dashboard/components/TopProducts';
@@ -29,6 +30,8 @@ function DashboardPage() {
           <TopProducts />
         </div>
       </section>
+      
+      <RecentSalesTable />
     </PageContainer>
   )
 }
