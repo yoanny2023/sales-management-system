@@ -9,9 +9,17 @@ type NavbarProps = {
   onMenuClick: () => void;
 };
 
+const pageTitles: Record<string, string> = {
+  "/dashboard": "Dashboard",
+  "/products": "Products",
+  "/sales": "Sales",
+};
+
+
 function Navbar({ onMenuClick}: NavbarProps) {
   const{user} = useAuth();
   const pathname = usePathname();
+  const currentTitle = pageTitles[pathname] ?? "Dashboard";
 
   return (
     <header className="fixed top-0 right-0 left-0 md:left-64 z-30 h-16 border-b border-zinc-800 bg-zinc-900/95 px-6 backdrop-blur-md flex items-center justify-between">
@@ -23,9 +31,19 @@ function Navbar({ onMenuClick}: NavbarProps) {
           <IconMenu3 stroke={2} className="text-amber-500 cursor-pointer" size={22} />
         </button>
 
-        <h1 className="font-medium text-sm md:text-md text-amber-500">
+        {/* <h1 className="font-medium text-sm md:text-md text-amber-500">
           {pathname.slice(1).toUpperCase()}
-        </h1>
+        </h1> */}
+
+        <div>
+          <h1 className="text-sm font-semibold text-zinc-100 md:text-base">
+            {currentTitle}
+          </h1>
+
+          <p className="hidden text-xs text-zinc-500 md:block">
+            Manage your business insights
+          </p>
+        </div>
         
       </div>
 
