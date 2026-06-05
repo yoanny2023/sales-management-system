@@ -14,9 +14,6 @@ export default function WelcomeSection() {
 
       <div className="relative flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div>
-          {/* <p className="mb-2 text-sm font-medium text-amber-400">
-            Dashboard Overview
-          </p> */}
           <div className="mb-4 inline-flex items-center rounded-full border border-amber-500/20 bg-amber-500/10 px-3 py-1">
             <span className="text-xs font-medium text-amber-400">
               Dashboard Overview

@@ -16,7 +16,7 @@ export default function RecentSalesTable() {
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full border-separate border-spacing-y-2">
+        <table className="min-w-[700px] w-full border-separate border-spacing-y-2">
           <thead>
             <tr className="text-left text-sm text-zinc-500">
               <th className="pb-3 font-medium"> Customer </th>
