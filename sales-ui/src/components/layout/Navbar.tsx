@@ -14,7 +14,7 @@ function Navbar({ onMenuClick}: NavbarProps) {
   const pathname = usePathname();
 
   return (
-    <header className="w-full h-16 px-6 bg-zinc-900 border-b border-zinc-800 flex items-center justify-between">
+    <header className="fixed top-0 right-0 left-0 md:left-64 z-30 h-16 border-b border-zinc-800 bg-zinc-900/95 px-6 backdrop-blur-md flex items-center justify-between">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}

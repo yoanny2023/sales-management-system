@@ -25,14 +25,14 @@ export default function DashboardLayout({children}: {children: React.ReactNode})
           setIsSidebarOpen(false)
         }
       />
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col md:ml-64">
         <Navbar 
           onMenuClick={() =>
             setIsSidebarOpen(true)
           } 
         />
 
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto pt-16">
           {children}
         </main>
       </div>
