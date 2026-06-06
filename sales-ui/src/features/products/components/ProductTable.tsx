@@ -1,5 +1,6 @@
 import {IconEdit,IconTrash,} from "@tabler/icons-react";
 import { mockProducts } from "../data/mockProducts";
+import Link from "next/link";
 
 export default function ProductTable() {
   
@@ -61,10 +62,11 @@ export default function ProductTable() {
                 >
                   <td className="px-6 py-5">
                     <div>
-                      <p className="font-medium text-zinc-100">
+                      <Link href={`/products/${product.id}`}
+                        className="font-medium text-zinc-100 transition-colors duration-300 hover:text-amber-400"
+                      >
                         {product.name}
-                      </p>
-
+                      </Link>
                       <p className="text-sm text-zinc-500">
                         Product #{product.id}
                       </p>
