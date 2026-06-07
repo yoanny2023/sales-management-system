@@ -1,10 +1,27 @@
+"use client"
+
 import {IconEdit,IconTrash,} from "@tabler/icons-react";
-import { mockProducts } from "../data/mockProducts";
+//import { mockProducts } from "../data/mockProducts";
 import Link from "next/link";
+import { useProducts } from "../hooks/useProducts";
+import Loading from "@/components/ui/Loading";
 
 export default function ProductTable() {
-  
-  if (!mockProducts.length) {
+  const{products,isLoading,error} = useProducts();
+
+  if(isLoading) return <Loading />
+
+  if (error) {
+    return (
+      <section className="rounded-3xl border border-red-500/20 bg-red-500/5 p-6">
+        <p className="text-sm text-red-400">
+          {error}
+        </p>
+      </section>
+    );
+  }
+
+  if (!products.length) {
     return (
       <section className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-dashed border-zinc-800 bg-zinc-900/40 p-10 text-center">
         <h3 className="text-lg font-semibold text-zinc-100">
@@ -52,7 +69,7 @@ export default function ProductTable() {
           </thead>
 
           <tbody>
-            {mockProducts.map((product) => {
+            {products.map((product) => {
               const isLowStock = product.stock < 10;
 
               return (

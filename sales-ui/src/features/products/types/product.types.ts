@@ -6,3 +6,8 @@ export type Product = {
   createdAt: string;
   userId: number;
 }
+
+export type GetProductsResponse = {
+  message: string;
+  products: Product[];
+};
