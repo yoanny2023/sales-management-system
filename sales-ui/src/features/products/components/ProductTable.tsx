@@ -1,7 +1,6 @@
 "use client"
 
 import {IconEdit,IconTrash,} from "@tabler/icons-react";
-//import { mockProducts } from "../data/mockProducts";
 import Link from "next/link";
 import { useProducts } from "../hooks/useProducts";
 import Loading from "@/components/ui/Loading";
@@ -70,7 +69,7 @@ export default function ProductTable() {
 
           <tbody>
             {products.map((product) => {
-              const isLowStock = product.stock < 10;
+              const isLowStock = product.stock < 3;
 
               return (
                 <tr
