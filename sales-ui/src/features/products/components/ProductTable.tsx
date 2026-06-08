@@ -1,12 +1,10 @@
-"use client"
-
 import {IconEdit,IconTrash,} from "@tabler/icons-react";
 import Link from "next/link";
-import { useProducts } from "../hooks/useProducts";
 import Loading from "@/components/ui/Loading";
+import { ProductTableProps } from "../types/product.types";
+import EmptyState from "./EmptyState";
 
-export default function ProductTable() {
-  const{products,isLoading,error} = useProducts();
+export default function ProductTable({products,totalProducts,isLoading,error}:ProductTableProps) {
 
   if(isLoading) return <Loading />
 
@@ -20,18 +18,21 @@ export default function ProductTable() {
     );
   }
 
-  if (!products.length) {
-    return (
-      <section className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl border border-dashed border-zinc-800 bg-zinc-900/40 p-10 text-center">
-        <h3 className="text-lg font-semibold text-zinc-100">
-          No products yet
-        </h3>
+  if (products.length === 0) {
+    if (totalProducts === 0) {
+      return (
+        <EmptyState
+          title="No products yet"
+          description="Start by adding your first product."
+        />
+      );
+    }
 
-        <p className="mt-2 max-w-sm text-sm text-zinc-500">
-          Start by creating your first
-          product to manage inventory.
-        </p>
-      </section>
+    return (
+      <EmptyState
+        title="No products found"
+        description="Try adjusting your search or filters."
+      />
     );
   }
 
@@ -69,7 +70,7 @@ export default function ProductTable() {
 
           <tbody>
             {products.map((product) => {
-              const isLowStock = product.stock < 3;
+              const isLowStock = product.stock <= 3;
 
               return (
                 <tr
