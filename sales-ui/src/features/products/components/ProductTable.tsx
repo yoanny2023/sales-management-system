@@ -1,12 +1,12 @@
 import {IconEdit,IconTrash,} from "@tabler/icons-react";
 import Link from "next/link";
-import Loading from "@/components/ui/Loading";
 import { ProductTableProps } from "../types/product.types";
 import EmptyState from "./EmptyState";
+import Skeleton from "./Skeleton";
 
 export default function ProductTable({products,totalProducts,isLoading,error}:ProductTableProps) {
 
-  if(isLoading) return <Loading />
+  if(isLoading) return <Skeleton />
 
   if (error) {
     return (

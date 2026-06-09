@@ -39,7 +39,7 @@ export default function ProductFilters({
           <option value="newest">Product (newest)</option>
           <option value="oldest">Product (oldest)</option>
           <option value="name-asc">Product (asc)</option>
-          <option value="name-des">Product (des)</option>
+          <option value="name-desc">Product (des)</option>
           <option value="price-asc">Price (Low-High)</option>
           <option value="price-desc">Price (High-Low)</option>
         </select>
