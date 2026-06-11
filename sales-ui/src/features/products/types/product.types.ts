@@ -9,6 +9,11 @@ export type Product = {
   userId: number;
 }
 
+export type GetProductResponse = {
+  message: string;
+  product: Product;
+};
+
 export type GetProductsResponse = {
   message: string;
   products: Product[];

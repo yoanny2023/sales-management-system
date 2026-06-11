@@ -1,4 +1,5 @@
-import PageContainer from '@/components/layout/PageContainer';
+import PageContainer from "@/components/layout/PageContainer";
+import ProductDetailsPage from "@/features/products/components/ProductDetails";
 
 type ProductDetailsPageProps = {
   params: Promise<{
@@ -6,14 +7,15 @@ type ProductDetailsPageProps = {
   }>;
 };
 
-export default async function ProductDetailsPage({params,}: ProductDetailsPageProps) {
+export default async function ProductPage({params,}: ProductDetailsPageProps) {
   const{id} = await params;
 
   return (
     <PageContainer>
-      <div className="text-zinc-100">
-       Product ID:{id}
-      </div>  
+      <ProductDetailsPage
+        id={id}
+      />
     </PageContainer>
+   
   );
 }
