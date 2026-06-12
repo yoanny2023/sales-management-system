@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Product } from "../types/product.types";
 import { ProductService } from "../services/product.service";
+import { AxiosError } from "axios";
 
 export function useProduct(id:string){
   const[product,setProduct] = useState<Product | null>(null);
@@ -16,11 +17,17 @@ export function useProduct(id:string){
       const response = await ProductService.getProductById(id);
       setProduct(response);
     } catch (error:unknown) {
-       if (error instanceof Error) {
-          setError(error.message);
-        }
-    }finally{
-      setIsLoading(false)
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 404) {
+            setProduct(null);
+            return;
+          }
+
+        setError(error.response?.data?.message ?? "Failed to fetch product");
+        return;
+      }
+    } finally {
+        setIsLoading(false)
     }
   },[id]);
 

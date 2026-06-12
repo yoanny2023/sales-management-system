@@ -5,20 +5,9 @@ import { GetProductResponse, GetProductsResponse, Product } from "../types/produ
 export class ProductService{
 
   static async getProductById(id:string):Promise<Product>{
+    const response = await api.get<GetProductResponse>(`/products/${id}`);
 
-    try {
-      const response = await api.get<GetProductResponse>(`/products/${id}`);
-      return response.data.product
-      
-    } catch (error:unknown) {
-      const axiosError = error as AxiosError<{
-          message?: string;
-        }>;
-
-      throw new Error(
-        axiosError.response?.data?.message || "Failed to fetch product"
-      );
-    }
+    return response.data.product
   }
 
   static async getProducts():Promise<Product[]>{
@@ -27,7 +16,7 @@ export class ProductService{
 
       return response.data.products;
 
-    } catch (error) {
+    } catch (error:unknown) {
       const axiosError = error as AxiosError<{
           message?: string;
         }>;
