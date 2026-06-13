@@ -1,8 +1,8 @@
-import {IconEdit,IconTrash,} from "@tabler/icons-react";
 import Link from "next/link";
 import { ProductTableProps } from "../types/product.types";
 import EmptyState from "./EmptyState";
 import Skeleton from "./Skeleton";
+import StockBadge from "./StockBadge";
 
 export default function ProductTable({products,totalProducts,isLoading,error}:ProductTableProps) {
 
@@ -61,17 +61,11 @@ export default function ProductTable({products,totalProducts,isLoading,error}:Pr
               <th className="px-6 py-4 text-left text-sm font-medium text-zinc-500">
                 Created
               </th>
-
-              <th className="px-6 py-4 text-right text-sm font-medium text-zinc-500">
-                Actions
-              </th>
             </tr>
           </thead>
 
           <tbody>
             {products.map((product) => {
-              const isLowStock = product.stock <= 3;
-
               return (
                 <tr
                   key={product.id}
@@ -80,7 +74,7 @@ export default function ProductTable({products,totalProducts,isLoading,error}:Pr
                   <td className="px-6 py-5">
                     <div>
                       <Link href={`/products/${product.id}`}
-                        className="font-medium text-zinc-100 transition-colors duration-300 hover:text-amber-400"
+                        className="font-medium text-zinc-100 underline decoration-amber-500 decoration-2 underline-offset-4 transition-colors duration-300 hover:text-amber-400"
                       >
                         {product.name}
                       </Link>
@@ -99,15 +93,7 @@ export default function ProductTable({products,totalProducts,isLoading,error}:Pr
                   </td>
 
                   <td className="px-6 py-5">
-                    <span
-                      className={`rounded-full px-3 py-1 text-xs font-medium ${
-                        isLowStock
-                          ? "bg-red-500/10 text-red-400"
-                          : "bg-emerald-500/10 text-emerald-400"
-                      }`}
-                    >
-                      {isLowStock ? "Low Stock" : "In Stock"}
-                    </span>
+                    <StockBadge stock={product.stock}  />
                   </td>
 
                   <td className="px-6 py-5 text-sm text-zinc-500">
@@ -118,18 +104,6 @@ export default function ProductTable({products,totalProducts,isLoading,error}:Pr
                         }
                       ).format(new Date(product.createdAt))
                     }
-                  </td>
-
-                  <td className="px-6 py-5">
-                    <div className="flex justify-end gap-2">
-                      <button className="rounded-xl border border-zinc-700 p-2 text-zinc-400 transition-all cursor-pointer hover:border-amber-500/50 hover:bg-amber-500/10 hover:text-amber-400">
-                        <IconEdit size={18} />
-                      </button>
-
-                      <button className="rounded-xl border border-zinc-700 p-2 text-zinc-400 transition-all cursor-pointer hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400">
-                        <IconTrash size={18} />
-                      </button>
-                    </div>
                   </td>
                 </tr>
               );
