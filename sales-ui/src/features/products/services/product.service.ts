@@ -1,6 +1,7 @@
 import { api } from "@/lib/axios";
 import { AxiosError } from "axios";
-import { GetProductResponse, GetProductsResponse, Product } from "../types/product.types";
+import { CreateProductResponse, GetProductResponse, GetProductsResponse, Product } from "../types/product.types";
+import { ProductFormData } from "../schemas/product.schema";
 
 export class ProductService{
 
@@ -25,5 +26,10 @@ export class ProductService{
           axiosError.response?.data?.message || "Failed to fetch products"
       );
     }
+  }
+
+  static async createProduct(data: ProductFormData):Promise<Product>{
+    const response = await api.post<CreateProductResponse>("/products",data);
+    return response.data.product
   }
 }

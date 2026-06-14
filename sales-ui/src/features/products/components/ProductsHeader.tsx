@@ -1,5 +1,6 @@
 import Button from "@/components/ui/Button";
 import { IconPlus } from "@tabler/icons-react";
+import Link from "next/link";
 
 export default function ProductsHeader() {
   return (
@@ -14,10 +15,12 @@ export default function ProductsHeader() {
         </p>
       </div>
 
-      <Button className="self-end">
-        <IconPlus size={18} />
-        <span>Add Product</span>
-      </Button>
+      <Link href="/products/create">
+          <Button className="self-end">
+          <IconPlus size={18} />
+          <span>Add Product</span>
+        </Button>
+      </Link>
     </section>
   );
 }

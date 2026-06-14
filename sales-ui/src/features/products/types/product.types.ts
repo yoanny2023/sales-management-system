@@ -19,6 +19,11 @@ export type GetProductsResponse = {
   products: Product[];
 };
 
+export type CreateProductResponse = {
+  message: string;
+  product: Product;
+};
+
 export type ProductTableProps = {
   products: Product[],
   totalProducts: number;
