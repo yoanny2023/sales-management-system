@@ -3,12 +3,13 @@ import ProductActions from "./PoductActions"
 import StockBadge from "./StockBadge"
 
 type ProductInfoCardProps = {
+  id: string
   price: number
   stock: number
   createdAt: string
 }
 
-function ProductInfoCard({price,stock,createdAt}:ProductInfoCardProps) {
+function ProductInfoCard({id,price,stock,createdAt}:ProductInfoCardProps) {
   return (
     <div className="rounded-2xl border border-zinc-800 bg-zinc-900/80 p-6 shadow-sm">
       <div className="mb-6">
@@ -62,7 +63,9 @@ function ProductInfoCard({price,stock,createdAt}:ProductInfoCardProps) {
       </div>
 
       <div className="mt-8 border-t border-zinc-800 pt-5">
-        <ProductActions />
+        <ProductActions
+        id={id}
+        />
       </div>
     </div>
   )

@@ -40,6 +40,7 @@ function ProductDetails({id}:ProductDetailsProps) {
       </div>
       
       <ProductInfoCard
+        id={product.id.toString()}
         price={product.price}
         stock={product.stock}
         createdAt={product.createdAt}

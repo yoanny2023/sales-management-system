@@ -32,4 +32,10 @@ export class ProductService{
     const response = await api.post<CreateProductResponse>("/products",data);
     return response.data.product
   }
+
+  static async updateProduct(id:string,data: ProductFormData): Promise<Product>{
+
+    const response = await api.patch(`/products/${id}`,data);
+    return response.data.product
+  }
 }
