@@ -35,7 +35,7 @@ function EditProductForm({id,}: EditFormProps) {
     
       <div className="mx-auto max-w-2xl space-y-6">
         <div>
-          <h1 className="text-3xl font-semibold text-zinc-100">
+          <h1 className="mt-3 text-3xl font-semibold text-zinc-100">
             Edit Product
           </h1>
 

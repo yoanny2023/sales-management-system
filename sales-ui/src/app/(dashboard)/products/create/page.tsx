@@ -1,8 +1,11 @@
 import CreateProductForm from '@/features/products/components/CreateProductForm'
+import PageContainer from "@/components/layout/PageContainer";
 
 function CreateProductPage() {
   return (
-    <CreateProductForm />
+    <PageContainer>
+      <CreateProductForm />
+    </PageContainer>
   )
 }
 

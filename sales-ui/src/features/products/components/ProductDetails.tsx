@@ -28,7 +28,7 @@ function ProductDetails({id}:ProductDetailsProps) {
       <Button 
         className="flex gap-2"
         onClick={() => {
-          router.back()
+          router.replace("/products")
         }}
       >
         <IconArrowBack size={18} stroke={1} />
