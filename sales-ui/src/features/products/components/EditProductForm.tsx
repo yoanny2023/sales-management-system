@@ -3,7 +3,7 @@
 import ProductForm from "./ProductForm";
 import {useProduct,} from "../hooks/useProduct";
 import {useUpdateProduct,} from "../hooks/useUpdateProduct";
-import Skeleton from "./Skeleton";
+import Skeleton from "../../../components/ui/Skeleton";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import { IconArrowBack } from "@tabler/icons-react";

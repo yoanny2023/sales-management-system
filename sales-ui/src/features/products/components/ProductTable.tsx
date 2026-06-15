@@ -1,23 +1,16 @@
 import Link from "next/link";
 import { ProductTableProps } from "../types/product.types";
-import EmptyState from "./EmptyState";
-import Skeleton from "./Skeleton";
+import EmptyState from "../../../components/ui/EmptyState";
+import Skeleton from "../../../components/ui/Skeleton";
 import StockBadge from "./StockBadge";
+import ErrorState from "@/components/ui/ErrorState";
 
 export default function ProductTable({products,totalProducts,isLoading,error}:ProductTableProps) {
 
   if(isLoading) return <Skeleton />
 
-  if (error) {
-    return (
-      <section className="rounded-3xl border border-red-500/20 bg-red-500/5 p-6">
-        <p className="text-sm text-red-400">
-          {error}
-        </p>
-      </section>
-    );
-  }
-
+  if (error) return <ErrorState error={error} />
+    
   if (products.length === 0) {
     if (totalProducts === 0) {
       return (

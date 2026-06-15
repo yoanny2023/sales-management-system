@@ -1,13 +1,14 @@
 "use client";
 
 import { useProduct } from "../hooks/useProduct";
-import Skeleton from "./Skeleton";
+import Skeleton from "../../../components/ui/Skeleton";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import { IconArrowBack } from "@tabler/icons-react";
 import { formatDate } from "@/utils/formatDate";
 import ProductInfoCard from "./ProductInfoCard";
 import ProductNotFound from "./ProductNotFound";
+import ErrorState from "@/components/ui/ErrorState";
 
 type ProductDetailsProps = {
   id: string;
@@ -19,7 +20,7 @@ function ProductDetails({id}:ProductDetailsProps) {
 
   if (isLoading) return <Skeleton />
 
-  if (error) return <div>{error}</div>
+  if (error) return <ErrorState error={error} />
    
   if (!product) return <ProductNotFound />
   

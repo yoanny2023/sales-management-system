@@ -15,15 +15,17 @@ function DeleteProductModal({isOpen,onClose,onConfirm,isLoading,error,}: DeleteM
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+    <div
+      onClick={onClose} 
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
+    >
       <div className="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-900 p-6 shadow-xl">
         <h2 className="text-xl font-semibold text-zinc-100">
           Delete Product
         </h2>
 
         <p className="mt-2 text-zinc-400">
-          Are you sure you want to delete this product?
-          This action cannot be undone.
+          This action cannot be undone. The product will be permanently deleted.
         </p>
 
         {error && (
