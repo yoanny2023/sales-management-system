@@ -1,20 +1,20 @@
 "use client"
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { registerSchema, RegisterSchemaType } from '../schemas/auth.schema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { AuthService } from '../services/auth.service';
 import toast from 'react-hot-toast';
 import Card from '@/components/ui/Card';
 import FormInput from '@/components/forms/FormInput';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
+import { useRegister } from '../hooks/useRegister';
 
 function RegisterForm() {
-   const [apiError, setApiError] = useState("");
    const router = useRouter();
+   const{error,register:apiRegister} = useRegister();
+
    const{
        register,
        handleSubmit,
@@ -25,19 +25,15 @@ function RegisterForm() {
  
    async function onSubmit(data:RegisterSchemaType){
      try {
-       const response = await AuthService.register(data);
+       const response = await apiRegister(data);
        const{message} = response
-       setApiError("");
  
        toast.success(message)
        toast.success("Redirecting to login")
        router.push("/login")
  
      } catch (error:unknown) {
-        if (error instanceof Error) {
-         setApiError(error.message);
-         toast.error(error.message)
-       }
+        toast.error(error instanceof Error ? error.message : "Registration Failed");
      }
    } 
  
@@ -74,9 +70,9 @@ function RegisterForm() {
            error={errors.password?.message}
          />
  
-         {apiError && (
+         {error && (
            <p className="text-sm text-red-500 text-center">
-             {apiError}
+             {error}
            </p>
          )}
     

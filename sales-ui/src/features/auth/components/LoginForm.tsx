@@ -7,16 +7,16 @@ import { useForm } from 'react-hook-form';
 import { loginSchema, LoginSchemaType } from '../schemas/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Link from 'next/link';
-import { useState } from 'react';
-import { AuthService } from '../services/auth.service';
 import { useAuth } from '@/context/authContext';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { useLogin } from '../hooks/useLogin';
 
 function LoginForm() {
-  const [apiError, setApiError] = useState("");
   const{login} = useAuth();
   const router = useRouter();
+  const{error,login:apiLogin} = useLogin();
+
   const{
       register,
       handleSubmit,
@@ -27,21 +27,16 @@ function LoginForm() {
 
   async function onSubmit(data:LoginSchemaType){
     try {
-      const response = await AuthService.login(data);
+      const response = await apiLogin(data);
       const{user,token} = response
-      setApiError("");
-
       login(user,token);
       toast.success("Redirecting to dashboard")
       router.push("/dashboard")
 
     } catch (error:unknown) {
-       if (error instanceof Error) {
-        setApiError(error.message);
-        toast.error(error.message)
-      }
-    }
-  } 
+        toast.error(error instanceof Error ? error.message : "Login Failed");
+  }
+}
 
   return (
    <Card className="w-full max-w-sm">
@@ -67,9 +62,9 @@ function LoginForm() {
           error={errors.password?.message}
         />
 
-        {apiError && (
+        {error && (
           <p className="text-sm text-red-500 text-center">
-            {apiError}
+            {error}
           </p>
         )}
    
