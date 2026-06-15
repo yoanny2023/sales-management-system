@@ -16,25 +16,3 @@ export class AuthService{
     return response.data;
   }
 }
-
-/* catch (error) {
-
-       const axiosError = error as AxiosError<{
-          message?: string;
-        }>;
-
-      throw new Error(
-          axiosError.response?.data?.message || "Login failed"
-      );
-    } */
-
- /*  catch (error) {
-
-       const axiosError = error as AxiosError<{
-          message?: string;
-        }>;
-
-      throw new Error(
-          axiosError.response?.data?.message || "Registration failed"
-      );
-    } */
