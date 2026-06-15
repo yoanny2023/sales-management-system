@@ -1,5 +1,5 @@
 import { formatDate } from "@/utils/formatDate"
-import ProductActions from "./PoductActions"
+import ProductActions from "./ProductActions"
 import StockBadge from "./StockBadge"
 
 type ProductInfoCardProps = {

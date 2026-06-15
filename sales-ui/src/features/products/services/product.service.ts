@@ -38,4 +38,9 @@ export class ProductService{
     const response = await api.patch(`/products/${id}`,data);
     return response.data.product
   }
+
+  static async deleteProduct(id:string): Promise<void>{
+    const response = await api.delete(`/products/${id}`);
+    response.data.product
+  }
 }
