@@ -13,8 +13,8 @@ export const app = express();
 
 app.use(cors({
   origin: process.env.FRONTEND_URL || "http://localhost:3000",
-  methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS",],
-  allowedHeaders: ["Content-Type","Authorization",],
+  methods: ["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
+  allowedHeaders: ["Content-Type","Authorization"]
 }));
 
 app.options("*", cors());
