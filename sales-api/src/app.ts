@@ -12,11 +12,10 @@ configDotenv();
 export const app = express();
 
 app.use(cors({
-  origin: [
-      "http://localhost:3000",
-      process.env.FRONTEND_URL!,
-    ],
+  origin: process.env.FRONTEND_URL || "http://localhost:3000",
 }));
+
+console.log("FRONTEND_URL:", process.env.FRONTEND_URL);
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
