@@ -13,17 +13,10 @@ export const app = express();
 
 app.use(cors({
   origin: process.env.FRONTEND_URL || "http://localhost:3000",
-  methods:["GET","POST","PUT","PATCH","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization"]
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-
-app.get("/", (req, res) => {
-  console.log("GET / reached");
-  res.json({ message: "Backend alive" });
-});
 
 app.use("/auth",AuthRoutes);
 app.use("/products",authMiddleware,ProductRouter);
