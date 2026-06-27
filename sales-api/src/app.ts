@@ -20,6 +20,11 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+app.get("/", (req, res) => {
+  console.log("GET / reached");
+  res.json({ message: "Backend alive" });
+});
+
 app.use("/auth",AuthRoutes);
 app.use("/products",authMiddleware,ProductRouter);
 app.use("/sales",authMiddleware,SalesRoutes);
