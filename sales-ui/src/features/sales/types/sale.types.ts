@@ -33,3 +33,10 @@ export type CreateSaleResponse = {
   message: string;
   sale: Sale;
 };
+
+export type SalesTableProps = {
+  sales: Sale[];
+  totalSales: number;
+  isLoading: boolean;
+  error: string | null;
+};
