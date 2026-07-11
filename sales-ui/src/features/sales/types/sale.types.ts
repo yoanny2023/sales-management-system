@@ -40,3 +40,15 @@ export type SalesTableProps = {
   isLoading: boolean;
   error: string | null;
 };
+
+export type DateFilter =
+  | "all"
+  | "today"
+  | "this-week"
+  | "this-month";
+
+export type SaleSortOption =
+  | "newest"
+  | "oldest"
+  | "total-asc"
+  | "total-desc";

@@ -15,8 +15,8 @@ export default function ProductsHeader() {
         </p>
       </div>
 
-      <Link href="/products/create">
-          <Button className="self-end">
+      <Link href="/products/create" className="self-start">
+        <Button>
           <IconPlus size={18} />
           <span>Add Product</span>
         </Button>
