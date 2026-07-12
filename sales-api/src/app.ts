@@ -6,6 +6,7 @@ import { authMiddleware} from "./middlewares/auth.middleware.js";
 import ProductRouter from "./modules/product/product.routes.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
 import SalesRoutes from "./modules/sales/sales.routes.js";
+import DashboardStatsRoutes from "./modules/dashboard/dashboard.routes.js";
 
 configDotenv();
 
@@ -24,5 +25,6 @@ app.use(express.urlencoded({extended:true}));
 app.use("/auth",AuthRoutes);
 app.use("/products",authMiddleware,ProductRouter);
 app.use("/sales",authMiddleware,SalesRoutes);
+app.use("/dashboard",authMiddleware,DashboardStatsRoutes);
 
 app.use(errorMiddleware)
