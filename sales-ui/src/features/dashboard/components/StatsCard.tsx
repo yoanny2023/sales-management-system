@@ -22,7 +22,7 @@ export default function StatsCard({stat,}: StatsCardProps) {
 
         <div className="rounded-xl border border-amber-500/20 bg-amber-500/10 px-3 py-1">
           <span className="text-sm font-medium text-amber-400">
-            {stat.change}
+            {stat.badge}
           </span>
         </div>
       </div>

@@ -1,7 +1,7 @@
 export interface DashboardStat {
   title: string;
   value: string;
-  change: string;
+  badge: string;
   description: string;
 }
 
@@ -18,3 +18,15 @@ export interface RecentSale {
   status: "Completed" | "Pending" | "Refunded";
   date: string;
 }
+
+export type DashboardStats = {
+  totalRevenue: number;
+  totalSales: number;
+  totalProducts: number;
+  lowStockProducts: number;
+};
+
+export type DashboardResponse = {
+  message: string;
+  stats: DashboardStats;
+};
