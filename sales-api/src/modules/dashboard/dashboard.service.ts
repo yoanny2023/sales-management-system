@@ -1,11 +1,5 @@
+import { DashboardStats, TopProduct } from "../../types/dashboard.types.js";
 import DashboardRepository from "./dashboard.repository.js";
-
-export type DashboardStats = {
-  totalRevenue: number;
-  totalSales: number;
-  totalProducts: number;
-  lowStockProducts: number;
-};
 
 export default class DashboardService {
   static async getDashboardStats(): Promise<DashboardStats> {
@@ -27,5 +21,9 @@ export default class DashboardService {
       totalProducts,
       lowStockProducts,
     };
+  }
+
+  static async getTopProducts(): Promise<TopProduct[]> {
+    return await DashboardRepository.getTopProducts();
   }
 }

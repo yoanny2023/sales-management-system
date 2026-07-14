@@ -1,6 +1,5 @@
 import { prisma } from "../../config/prisma.js";
-
-const LOW_STOCK_THRESHOLD = 3;
+import { LOW_STOCK_THRESHOLD, TopProduct } from "../../types/dashboard.types.js";
 
 export default class DashboardRepository {
   
@@ -31,4 +30,47 @@ export default class DashboardRepository {
       },
     });
   }
+
+  static async getTopProducts(): Promise<TopProduct[]> {
+  const groupedProducts = await prisma.saleItem.groupBy({
+    by: ["productId"],
+
+    _sum: {
+      quantity: true,
+    },
+
+    orderBy: {
+      _sum: {
+        quantity: "desc",
+      },
+    },
+
+    take: 4,
+  });
+
+  const products = await prisma.product.findMany({
+    where: {
+      id: {
+        in: groupedProducts.map((product) => product.productId),
+      },
+    },
+
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+
+  return groupedProducts.map((group) => {
+    const product = products.find(
+      (product) => product.id === group.productId
+    );
+
+    return {
+      id: group.productId,
+      name: product?.name ?? "Unknown Product",
+      quantitySold: group._sum.quantity ?? 0,
+    };
+  });
+}
 }

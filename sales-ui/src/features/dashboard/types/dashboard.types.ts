@@ -30,3 +30,14 @@ export type DashboardResponse = {
   message: string;
   stats: DashboardStats;
 };
+
+export type TopProduct = {
+  id: number;
+  name: string;
+  quantitySold: number;
+};
+
+export type TopProductsResponse = {
+  message: string;
+  topProducts: TopProduct[];
+};

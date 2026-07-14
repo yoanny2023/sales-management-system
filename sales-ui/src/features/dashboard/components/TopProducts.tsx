@@ -1,23 +1,17 @@
-const products = [
-  {
-    name: "Nike Air Max",
-    sales: 78,
-  },
-  {
-    name: "Jordan Retro",
-    sales: 52,
-  },
-  {
-    name: "Adidas Samba",
-    sales: 49,
-  },
-  {
-    name: "Puma RS-X",
-    sales: 31,
-  },
-];
+import { useTopProducts } from "../hooks/useTopProducts";
+import ErrorState from "@/components/ui/ErrorState";
+import EmptyState from "@/components/ui/EmptyState";
+import Skeleton from "@/components/ui/Skeleton";
 
 export default function TopProducts() {
+  const {topProducts,isLoading,error,} = useTopProducts();
+
+  if (isLoading) return <Skeleton />;
+  
+  if (error) return <ErrorState error={error} />
+
+  if (topProducts.length === 0) return <EmptyState title="Top Products" description="No products found"  />
+
   return (
     <section className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
       <h2 className="text-lg font-semibold text-zinc-100">
@@ -25,13 +19,13 @@ export default function TopProducts() {
       </h2>
 
       <p className="mt-1 text-sm text-zinc-400">
-        Best-performing products
+        Best-selling products
       </p>
 
       <div className="mt-8 space-y-5">
-        {products.map((product) => (
+        {topProducts.map((product) => (
           <div
-            key={product.name}
+            key={product.id}
             className="flex items-center justify-between"
           >
             <div>
@@ -40,12 +34,12 @@ export default function TopProducts() {
               </p>
 
               <p className="text-sm text-zinc-500">
-                Product sales
+                Units sold
               </p>
             </div>
 
             <span className="text-sm font-medium text-amber-400">
-              {product.sales}
+              {product.quantitySold}
             </span>
           </div>
         ))}

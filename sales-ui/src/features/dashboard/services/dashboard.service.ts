@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import { DashboardResponse, DashboardStats } from "../types/dashboard.types";
+import { DashboardResponse, DashboardStats, TopProduct, TopProductsResponse } from "../types/dashboard.types";
 
 export default class DashboardService {
   static async getDashboardStats(): Promise<DashboardStats> {
@@ -7,4 +7,10 @@ export default class DashboardService {
 
     return response.data.stats;
   }
+
+  static async getTopProducts(): Promise<TopProduct[]> {
+  const response = await api.get<TopProductsResponse>("/dashboard/top-products");
+
+  return response.data.topProducts;
+}
 }

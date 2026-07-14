@@ -18,4 +18,20 @@ export default class DashboardController {
       next(error);
     }
   }
+
+  static async getTopProducts(
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
+    try {
+      const topProducts = await DashboardService.getTopProducts();
+      res.status(200).json({
+        message: "Top products fetched successfully",
+        topProducts,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
