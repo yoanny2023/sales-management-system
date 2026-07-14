@@ -15,16 +15,8 @@ export const sidebarLinks = [
     ],
   },
   { 
-    section: "Analytics",
-    items: [
-       {label: "Reports", href: "/report", icon: IconReportAnalytics},
-    ]
-  }, 
-  { 
     section: "Account",
     items: [
-      {
-        label: "Profile", href: "/profile", icon: IconUser},
        {label: "Logout", action: "logout", icon: IconLogout},
     ]
   }, 
