@@ -6,3 +6,10 @@ export function formatDate(date: string){
                         }
                       ).format(new Date(date))
 }
+
+export function getCurrentMonthYear(){
+  return new Date().toLocaleString("en-us",{
+    month: "long",
+    year: "numeric"
+  });
+}

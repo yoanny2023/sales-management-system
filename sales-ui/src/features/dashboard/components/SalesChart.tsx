@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useEffect, useState } from "react";
+import { useSales } from "@/features/sales/hooks/useSales";
 
 import {
   Area,
@@ -11,17 +12,45 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-
-import { salesChartData } from "../data/mockDashboard";
+import Skeleton from "@/components/ui/Skeleton";
+import ErrorState from "@/components/ui/ErrorState";
+import EmptyState from "@/components/ui/EmptyState";
 
 export default function SalesChart() {
   const [mounted, setMounted] = useState(false);
+  const {sales,isLoading,error,} = useSales();
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  const chartData = useMemo(() => {
+  const groupedSales = sales.reduce<Record<string, number>>(
+    (accumulator, sale) => {
+      const date = new Date(sale.createdAt).toLocaleDateString();
+
+      accumulator[date] = (accumulator[date] ?? 0) + sale.total;
+
+      return accumulator;
+    },
+    {}
+  );
+
+  return Object.entries(groupedSales).map(
+    ([date, total]) => ({
+      date,
+      sales: total,
+    })
+  );
+}, [sales]);
+
   if (!mounted) return null;
+
+  if (isLoading) return <Skeleton />;
+
+  if (error) return <ErrorState error={error} />
+
+  if (chartData.length === 0) return <EmptyState title=" Sales Analytics" description="No sales data available." />
 
   return (
     <section className="min-w-0 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
@@ -32,7 +61,7 @@ export default function SalesChart() {
           </h2>
 
           <p className="mt-1 text-sm text-zinc-400">
-            Revenue performance over time
+            Daily revenue
           </p>
         </div>
 
@@ -49,7 +78,7 @@ export default function SalesChart() {
           height="100%"
           minWidth={0}
         >
-          <AreaChart data={salesChartData}>
+          <AreaChart data={chartData}>
             <defs>
               <linearGradient
                 id="salesGradient"

@@ -1,4 +1,8 @@
+import { useAuth } from "@/context/authContext";
+import { getCurrentMonthYear } from "@/utils/formatDate";
+
 export default function WelcomeSection() {
+  const{user} = useAuth();
   const currentHour = new Date().getHours();
 
   const greeting =
@@ -21,7 +25,7 @@ export default function WelcomeSection() {
           </div>
 
           <h1 className="text-3xl font-bold tracking-tight text-zinc-100 md:text-4xl">
-            {greeting}, Yoanny 👋
+            {greeting}, {user?.name} 👋
           </h1>
 
           <p className="mt-3 max-w-xl text-sm leading-6 text-zinc-400 md:text-base">
@@ -35,7 +39,7 @@ export default function WelcomeSection() {
             <p className="text-xs text-zinc-500">Current Month</p>
 
             <p className="font-medium text-zinc-100">
-              June 2026
+              {getCurrentMonthYear()}
             </p>
           </div>
         </div>
