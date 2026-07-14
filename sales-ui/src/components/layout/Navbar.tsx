@@ -3,7 +3,6 @@
 import { useAuth } from '@/context/authContext';
 import { IconMenu3 } from '@tabler/icons-react'
 import { usePathname } from 'next/navigation';
-import Input from '../ui/Input';
 
 type NavbarProps = {
   onMenuClick: () => void;
@@ -42,7 +41,6 @@ function Navbar({ onMenuClick}: NavbarProps) {
       </div>
 
       <div className="flex gap-3">
-        <Input type="search" placeholder="search" className='w-auto hidden md:block' />
         <div className="flex items-center justify-center font-semibold h-10 w-10 rounded-full text-zinc-950 bg-amber-500
         border border-amber-400/20 shadow-lg shadow-amber-500/10">
           {user?.name?.slice(0,1).toUpperCase()}
