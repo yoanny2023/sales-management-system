@@ -1,5 +1,8 @@
 "use client"
 
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/animations/gsap";
 import { useAuth } from '@/context/authContext';
 import { IconMenu3 } from '@tabler/icons-react'
 import { usePathname } from 'next/navigation';
@@ -18,9 +21,19 @@ function Navbar({ onMenuClick}: NavbarProps) {
   const{user} = useAuth();
   const pathname = usePathname();
   const currentTitle = pageTitles[pathname] ?? "Dashboard";
+  const container = useRef<HTMLElement>(null);
+
+    useGSAP(
+    () => {
+      gsap.from(container.current, {y: -100,opacity: 0,duration: 0.6,ease: "power3.out",});
+    },
+    { scope: container }
+  );
 
   return (
-    <header className="fixed top-0 right-0 left-0 md:left-64 z-30 h-16 border-b border-zinc-800 bg-zinc-900/95 px-6 backdrop-blur-md flex items-center justify-between">
+    <header 
+      ref={container}
+      className="fixed top-0 right-0 left-0 md:left-64 z-30 h-16 border-b border-zinc-800 bg-zinc-900/95 px-6 backdrop-blur-md flex items-center justify-between">
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}

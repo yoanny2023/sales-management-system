@@ -2,6 +2,9 @@
 
 import { useMemo, useEffect, useState } from "react";
 import { useSales } from "@/features/sales/hooks/useSales";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/animations/gsap";
 
 import {
   Area,
@@ -19,6 +22,7 @@ import EmptyState from "@/components/ui/EmptyState";
 export default function SalesChart() {
   const [mounted, setMounted] = useState(false);
   const {sales,isLoading,error,} = useSales();
+  const container = useRef<HTMLElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -44,6 +48,27 @@ export default function SalesChart() {
   );
 }, [sales]);
 
+  useGSAP(() => {
+    if (!container.current || !mounted || chartData.length === 0) return;
+
+    gsap.from(container.current, {
+      opacity: 0,
+      y: 40,
+      duration: 0.7,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top 80%",
+        once: true,
+        scrub: 2,
+      },
+    });
+  },
+  {
+    dependencies: [mounted, chartData],
+  }
+);
+
   if (!mounted) return null;
 
   if (isLoading) return <Skeleton />;
@@ -53,7 +78,9 @@ export default function SalesChart() {
   if (chartData.length === 0) return <EmptyState title=" Sales Analytics" description="No sales data available." />
 
   return (
-    <section className="min-w-0 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
+    <section
+      ref={container} 
+      className="min-w-0 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h2 className="text-lg font-semibold text-zinc-100">

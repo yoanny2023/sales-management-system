@@ -48,7 +48,7 @@ function DashboardPage() {
   return (
     <PageContainer className="space-y-6">
       <WelcomeSection />
-
+      
       <section className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {dashboardStats.map((stat) => (
           <StatsCard
@@ -67,7 +67,7 @@ function DashboardPage() {
           <TopProducts />
         </div>
       </section>
-      
+     
       <RecentSalesTable />
     </PageContainer>
   )
