@@ -4,13 +4,39 @@ import ErrorState from "@/components/ui/ErrorState";
 import EmptyState from "@/components/ui/EmptyState";
 import { formatDate } from "@/utils/formatDate";
 import Skeleton from "@/components/ui/Skeleton";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/animations/gsap";
 
 export default function RecentSalesTable() {
   const {sales,isLoading,error,} = useSales();
+  const container = useRef<HTMLElement>(null);
 
   const recentSales = useMemo(() => {
     return sales.slice(0, 5);
   }, [sales]);
+
+  useGSAP(
+  () => {
+    if (!container.current || recentSales.length === 0) return;
+
+    gsap.from(container.current.querySelectorAll("tbody tr"), {
+      opacity: 0,
+      y: 20,
+      stagger: 0.08,
+      duration: 0.5,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top 80%",
+        once: true,
+      },
+    });
+  },
+  {
+    dependencies: [recentSales],
+  }
+);
 
   if (isLoading) return <Skeleton />;
 
@@ -19,7 +45,9 @@ export default function RecentSalesTable() {
   if (recentSales.length === 0) return <EmptyState title="Recent sales" description="No Sales found" />
      
   return (
-    <section className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
+    <section
+      ref={container}
+      className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-zinc-100">
           Recent Sales

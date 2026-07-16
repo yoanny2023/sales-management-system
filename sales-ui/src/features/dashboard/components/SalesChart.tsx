@@ -60,7 +60,6 @@ export default function SalesChart() {
         trigger: container.current,
         start: "top 80%",
         once: true,
-        scrub: 2,
       },
     });
   },

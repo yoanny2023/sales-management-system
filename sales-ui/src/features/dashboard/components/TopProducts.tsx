@@ -2,9 +2,31 @@ import { useTopProducts } from "../hooks/useTopProducts";
 import ErrorState from "@/components/ui/ErrorState";
 import EmptyState from "@/components/ui/EmptyState";
 import Skeleton from "@/components/ui/Skeleton";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/animations/gsap";
 
 export default function TopProducts() {
   const {topProducts,isLoading,error,} = useTopProducts();
+  const container = useRef<HTMLElement>(null);
+
+  useGSAP(
+  () => {
+    if (!container.current || topProducts.length === 0) return;
+
+    gsap.from(container.current, {
+      opacity: 0,x: 40,duration: 0.7,ease: "power3.out",
+      scrollTrigger: {
+        trigger: container.current,
+        start: "top 80%",
+        once: true,
+      },
+    });
+  },
+  {
+    dependencies: [topProducts],
+  }
+);
 
   if (isLoading) return <Skeleton />;
   
@@ -13,7 +35,9 @@ export default function TopProducts() {
   if (topProducts.length === 0) return <EmptyState title="Top Products" description="No products found"  />
 
   return (
-    <section className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
+    <section
+      ref={container}
+      className="rounded-3xl border border-zinc-800 bg-zinc-900/60 p-6 backdrop-blur-sm">
       <h2 className="text-lg font-semibold text-zinc-100">
         Top Products
       </h2>
