@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/animations/gsap";
 import Link from "next/link";
 import { ProductTableProps } from "../types/product.types";
 import EmptyState from "../../../components/ui/EmptyState";
@@ -6,6 +11,18 @@ import StockBadge from "./StockBadge";
 import ErrorState from "@/components/ui/ErrorState";
 
 export default function ProductTable({products,totalProducts,isLoading,error}:ProductTableProps) {
+  const container = useRef<HTMLElement>(null);
+
+  useGSAP(() => {
+  if (!container.current) return;
+
+  gsap.from(container.current, {
+      opacity: 0,
+      y: 24,
+      duration: 0.6,
+      ease: "power3.out",
+    });
+  });
 
   if(isLoading) return <Skeleton />
 
@@ -30,7 +47,9 @@ export default function ProductTable({products,totalProducts,isLoading,error}:Pr
   }
 
   return (
-    <section className="overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-sm">
+    <section   
+      ref={container}
+      className="overflow-hidden rounded-3xl border border-zinc-800 bg-zinc-900/60 backdrop-blur-sm">
       <div className="overflow-x-auto">
         <table className="min-w-[700px] w-full">
           <thead className="border-b border-zinc-800 bg-zinc-950/50">

@@ -1,3 +1,8 @@
+"use client";
+
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "@/lib/animations/gsap";
 import Input from "@/components/ui/Input";
 import { ProductFiltersProps, SortOption, StockFilter } from "../types/product.types";
 
@@ -10,9 +15,28 @@ export default function ProductFilters({
     onSortChange
   }:ProductFiltersProps) {
 
+  const container = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({
+        defaults: {
+          duration: 0.5,
+          ease: "power3.out",
+        },
+      });
+
+      tl.from(".filters-search", {opacity: 0,x: -24,})
+        .from(".filters-actions",{opacity: 0,x: 24,},"-=0.3");
+    },
+    { scope: container }
+  );
+
   return (
-    <section className="flex flex-col gap-4 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-5 backdrop-blur-sm lg:flex-row lg:items-center lg:justify-between">
-      <div className="w-full lg:max-w-sm">
+    <section 
+      ref={container}
+      className="flex flex-col gap-4 rounded-3xl border border-zinc-800 bg-zinc-900/60 p-5 backdrop-blur-sm lg:flex-row lg:items-center lg:justify-between">
+      <div className="filters-search w-full lg:max-w-sm">
         <Input
           type="search"
           placeholder="Search by name..."
@@ -21,7 +45,7 @@ export default function ProductFilters({
         />
       </div>
 
-      <div className="flex flex-col gap-3 sm:flex-row">
+      <div className="filters-actions flex flex-col gap-3 sm:flex-row">
         <select className="rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-2.5 text-sm text-zinc-300 outline-none transition-colors focus:border-amber-500"
           value={stockFilter}
           onChange={(e) => onStockFilterChange(e.target.value as StockFilter)}
